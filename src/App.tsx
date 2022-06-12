@@ -1,38 +1,58 @@
-import * as React from "react"
+import * as React from "react";
 import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { ChakraProvider, theme, extendTheme } from "@chakra-ui/react";
+
+import { Home } from "./pages/Home";
+import { Account } from "./pages/Account";
+
+const light = "#fcf1f3";
+const lightMid = "#ffe9ef";
+const mid = "#fde3e7";
+const strong = "#fac6ce";
+const bold = "#d40819";
+const dark = "#130001";
+
+const customTheme = extendTheme({
+  colors: {
+    brand: {
+      light: "#fcf1f3",
+      lightMid: "#ffe9ef",
+      mid: "#fde3e7",
+      strong: "#fac6ce",
+      bold: "#d40819",
+      dark: "#130001",
+    },
+  },
+  components: {
+    Button: {
+      baseStyle: {
+        color: "brand.bold",
+        bg: "brand.lightMid",
+      },
+    },
+  },
+  styles: {
+    global: {
+      body: {
+        bg: 'brand.light',
+        color: 'brand.dark',
+      },
+    },
+  },
+});
 
 export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+  <ChakraProvider theme={customTheme}>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/account" element={<Account />} />
+      </Routes>
+    </Router>
   </ChakraProvider>
-)
+);
