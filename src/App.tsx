@@ -9,6 +9,7 @@ import { ChakraProvider, theme, extendTheme } from "@chakra-ui/react";
 
 import { Home } from "./pages/Home";
 import { Account } from "./pages/Account";
+import { Nav } from "./components/nav/Nav";
 
 const light = "#fcf1f3";
 const lightMid = "#ffe9ef";
@@ -35,12 +36,17 @@ const customTheme = extendTheme({
         bg: "brand.lightMid",
       },
     },
+    Box: {
+      baseStyle: {
+        bgColor: "brand.mid",
+      },
+    },
   },
   styles: {
     global: {
       body: {
-        bg: 'brand.light',
-        color: 'brand.dark',
+        bg: "brand.light",
+        color: "brand.dark",
       },
     },
   },
@@ -48,6 +54,7 @@ const customTheme = extendTheme({
 
 export const App = () => (
   <ChakraProvider theme={customTheme}>
+    <Nav />
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
